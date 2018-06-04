@@ -27,8 +27,8 @@ describe('Server path: /videos/:id', () => {
 
       // Assert that the created item's title and description are in the returned HTML.
       // You can get this text in the #item-title and #item-description fields.
-      assert.include(parseTextFromHTML(response.text, '#video-title'), item.title);
-      assert.include(parseTextFromHTML(response.text, '#video-description'), item.description);
+      assert.include(parseTextFromHTML(response.text, '.video-title'), item.title);
+      assert.include(parseTextFromHTML(response.text, '.video-description'), item.description);
     });
 
   });

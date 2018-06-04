@@ -22,9 +22,11 @@
         <div class="video-player">
             <iframe class="video-player" src="{{video.videoUrl}}" frameborder="0" allowfullscreen></iframe>
         </div>
-        <div class="video-title">
-            {{video.title}}
-        </div>
+            <a href="/videos/{{video._id}}">
+                <div class="video-title">
+                    {{video.title}}
+                </div>
+            </a>
     </div>
     {{/each}}
 </div>

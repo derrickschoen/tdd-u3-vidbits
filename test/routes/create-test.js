@@ -56,14 +56,16 @@ describe('Server path: /videos', () => {
       });
 
 
-      it('redirects home', async () => {
+      it('redirects to the video\'s details page', async () => {
         const itemToCreate = buildItemObject();
         const response = await request(app)
           .post('/videos')
           .type('form')
           .send(itemToCreate);
+
+        const createdItem = await Video.findOne(itemToCreate);
         assert.equal(response.status, 302);
-        assert.equal(response.headers.location, '/videos');
+        assert.equal(response.headers.location, '/videos/' + createdItem._id);
       });
     });
 

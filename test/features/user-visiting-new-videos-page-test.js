@@ -14,7 +14,7 @@ describe('User visiting new videos page', () => {
       browser.url('/');
       assert.include(browser.getText('#videos-container'), itemToCreate.title);
       // assert.include(browser.getText('body'), itemToCreate.description);
-      // assert.include(browser.getAttribute('body img', 'src'), itemToCreate.imageUrl);
+      assert.include(browser.getAttribute('body iframe', 'src'), itemToCreate.videoUrl);
 
     });
   });

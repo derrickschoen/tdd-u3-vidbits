@@ -24,6 +24,7 @@ describe('Server path: /videos', () => {
 
   describe('GET', () => {
 
+
     it('renders an existing video', async () => {
       const item = await seedItemToDatabase();
 
@@ -31,9 +32,9 @@ describe('Server path: /videos', () => {
         .get(`/videos`);
 
       assert.include(parseTextFromHTML(response.text, '.video-title'), item.title);
-      // const imageElement = findImageElementBySource(response.text, item.videoUrl);
-      // assert.equal(imageElement.src, item.videoUrl);
+      assert.include(response.text, item.videoUrl);
     });
+
 
     it('renders all items from the database', async () => {
       const firstItem = await seedItemToDatabase({title: 'Item1'});

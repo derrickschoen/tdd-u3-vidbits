@@ -21,6 +21,7 @@ router.get('/videos/create', async (req, res, next) => {
 });
 
 
+// Only route the requests that include a valid MongoDB id format
 router.get('/videos/:videoId([0-9A-Fa-f]{24})', async (req, res, next) => {
   const videoId = req.params.videoId;
   const item = await Video.findById(videoId);
@@ -38,7 +39,7 @@ router.post('/videos', async (req, res, next) => {
     res.status(400).render('videos/create', {newVideo: newVideo});
   } else {
     await newVideo.save();
-    res.redirect('/videos');
+    res.redirect('/videos/'+ newVideo._id);
   }
 
 });

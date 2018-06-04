@@ -1,3 +1,14 @@
-<span id="video-title" name="video-title">{{video.title}}</span>
-<p></p>
-<span id="video-description" name="video-description">{{video.description}}</span>
+<div class="contents-container">
+    <div class="video-card">
+
+        <div class="video-title" id="video-title" name="video-title">
+            <h1>{{video.title}}</h1>
+        </div>
+
+        <iframe class="video-player" src="{{video.videoUrl}}" frameborder="0" allowfullscreen></iframe>
+
+        <div class="video-description">
+            <p>{{video.description}} </p>
+        </div>
+    </div>
+</div>
