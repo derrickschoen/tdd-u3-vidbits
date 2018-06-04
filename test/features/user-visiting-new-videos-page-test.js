@@ -6,7 +6,7 @@ describe('User visiting new videos page', () => {
   it('can save a video', () => {
     const itemToCreate = buildItemObject();
 
-    browser.url('/create.html');
+    browser.url('/videos/create');
     browser.setValue('#title-input', itemToCreate.title);
     browser.setValue('#description-input', itemToCreate.description);
     browser.setValue('#videoUrl-input', itemToCreate.videoUrl);

@@ -6,7 +6,7 @@ describe('User visiting the landing page', () => {
     // Setup
     browser.url('/');
     // Exercise
-    browser.click('a[href="/create.html"]');
+    browser.click('a[href="/videos/create"]');
     // Verification
     assert.include(browser.getText('body'), 'Save a video');
   });
