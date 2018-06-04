@@ -87,9 +87,8 @@ describe('Server path: /videos', () => {
         assert.equal(response.status, 400);
         assert.include(parseTextFromHTML(response.text, 'form'), 'required');
 
-        assert.equal(parseTextFromHTML(response.text, 'input#title-input'), '');
         assert.include(parseTextFromHTML(response.text, 'textarea#description-input'), invalidItemToCreate.description);
-        //assert.include(parseTextFromHTML(response.text, 'input#videoUrl-input'), invalidItemToCreate.videoUrl);
+        assert.include(response.text, invalidItemToCreate.videoUrl);
       });
     });
 
@@ -107,6 +106,10 @@ describe('Server path: /videos', () => {
       assert.equal(allItems.length, 0);
       assert.equal(response.status, 400);
       assert.include(parseTextFromHTML(response.text, 'form'), 'required');
+
+      assert.include(response.text, invalidItemToCreate.title);
+      assert.equal(parseTextFromHTML(response.text, 'textarea#description-input'), '');
+      assert.include(response.text, invalidItemToCreate.videoUrl);
     });
 
 
@@ -123,6 +126,9 @@ describe('Server path: /videos', () => {
       assert.equal(allItems.length, 0);
       assert.equal(response.status, 400);
       assert.include(parseTextFromHTML(response.text, 'form'), 'required');
+
+      assert.include(response.text, invalidItemToCreate.title);
+      assert.include(parseTextFromHTML(response.text, 'textarea#description-input'), invalidItemToCreate.description);
     });
     
   });
