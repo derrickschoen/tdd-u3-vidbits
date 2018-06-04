@@ -6,6 +6,11 @@ const Video = require('../models/video');
 
 // Routes
 router.get('/', async (req, res, next) => {
+  res.redirect('/videos');
+});
+
+
+router.get('/videos', async (req, res, next) => {
   const videos = await Video.find({});
   res.render('index', {videos});
 });
@@ -25,9 +30,7 @@ router.post('/videos', async (req, res, next) => {
     res.status(400).render('create', {video: newVideo});
   } else {
     await newVideo.save();
-    //res.redirect('/');
-
-    res.render('videos/show', {video: newVideo})
+    res.redirect('/videos');
   }
 
 });

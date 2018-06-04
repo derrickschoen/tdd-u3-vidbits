@@ -1,6 +1,6 @@
 const {jsdom} = require('jsdom');
 
-const Item = require('../models/video');
+const Video = require('../models/video');
 
 // Create and return a sample Item object
 const buildItemObject = (options = {}) => {
@@ -12,8 +12,8 @@ const buildItemObject = (options = {}) => {
 
 // Add a sample Item object to mongodb
 const seedItemToDatabase = async (options = {}) => {
-  const item = await Item.create(buildItemObject(options));
-  return item;
+  const video = await Video.create(buildItemObject(options));
+  return video;
 };
 
 // extract text from an Element by selector.

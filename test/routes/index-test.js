@@ -16,22 +16,23 @@ const findImageElementBySource = (htmlAsString, src) => {
   }
 };
 
-describe('Server path: /', () => {
-/*
+describe('Server path: /videos', () => {
+
   beforeEach(connectDatabaseAndDropData);
 
   afterEach(disconnectDatabase);
 
   describe('GET', () => {
-    it('renders an item with a title and image', async () => {
+
+    it('renders an existing video', async () => {
       const item = await seedItemToDatabase();
 
       const response = await request(app)
-      .get(`/`);
+        .get(`/videos`);
 
-      assert.include(parseTextFromHTML(response.text, '.item-title'), item.title);
-      const imageElement = findImageElementBySource(response.text, item.imageUrl);
-      assert.equal(imageElement.src, item.imageUrl);
+      assert.include(parseTextFromHTML(response.text, '.video-title'), item.title);
+      // const imageElement = findImageElementBySource(response.text, item.videoUrl);
+      // assert.equal(imageElement.src, item.videoUrl);
     });
 
     it('renders all items from the database', async () => {
@@ -39,11 +40,11 @@ describe('Server path: /', () => {
       const secondItem = await seedItemToDatabase({title: 'Item2'});
 
       const response = await request(app)
-        .get(`/`);
+        .get(`/videos`);
 
-      assert.include(parseTextFromHTML(response.text, `#item-${firstItem._id} .item-title`), firstItem.title);
-      assert.include(parseTextFromHTML(response.text, `#item-${secondItem._id} .item-title`), secondItem.title);
+      assert.include(parseTextFromHTML(response.text, `#video-${firstItem._id} .video-title`), firstItem.title);
+      assert.include(parseTextFromHTML(response.text, `#video-${secondItem._id} .video-title`), secondItem.title);
     });
+
   });
-  */
 });

@@ -15,6 +15,16 @@
     </a>
 </div>
 
-<div class="contents-container" id="videos-container" name="videos-container">
 
+<div class="contents-container" id="videos-container" name="videos-container">
+    {{#each videos as |video|}}
+    <div id="video-{{video._id}}" class="video-card">
+        <div class="video-player">
+            <iframe class="video-player" src="{{video.videoUrl}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-title">
+            {{video.title}}
+        </div>
+    </div>
+{{/each}}
 </div>
