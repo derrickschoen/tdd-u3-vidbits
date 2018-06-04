@@ -18,14 +18,15 @@ const findImageElementBySource = (htmlAsString, src) => {
 };
 
 describe('Server path: /items/create', () => {
-  /*
-  const itemToCreate = buildItemObject();
+
 
   beforeEach(connectDatabaseAndDropData);
 
   afterEach(diconnectDatabase);
-
+/*
   describe('GET', () => {
+
+
     it('renders empty input fields', async () => {
       const response = await request(app)
         .get('/items/create');
@@ -36,17 +37,35 @@ describe('Server path: /items/create', () => {
  
     });
   });
+*/
 
   describe('POST', () => {
-    it('creates and saves a new item', async () => {
+
+    it('returns 201', async () => {
       const itemToCreate = buildItemObject();
       const response = await request(app)
-        .post('/items/create')
+        .post('/videos')
         .type('form')
         .send(itemToCreate);
-      const createdItem = await Item.findOne(itemToCreate);
+      assert.equal(response.status, 201);
+    });
+
+    it('creates and saves a new video', async () => {
+      const itemToCreate = buildItemObject();
+      const response = await request(app)
+        .post('/videos')
+        .type('form')
+        .send(itemToCreate);
+      const createdItem = await Video.findOne(itemToCreate);
       assert.isOk(createdItem, 'Item was not created successfully in the database');
     });
+
+
+/*
+
+
+
+
     it('redirects home', async () => {
       const itemToCreate = buildItemObject();
       const response = await request(app)
@@ -56,6 +75,8 @@ describe('Server path: /items/create', () => {
       assert.equal(response.status, 302);
       assert.equal(response.headers.location, '/');
     });
+
+
     it('displays an error message when supplied an empty title', async () => {
       const invalidItemToCreate = {
         description: 'test',
@@ -70,6 +91,8 @@ describe('Server path: /items/create', () => {
       assert.equal(response.status, 400);
       assert.include(parseTextFromHTML(response.text, 'form'), 'required');
     });
+
+
     it('displays an error message when supplied an empty description', async () => {
       const invalidItemToCreate = {
         title: 'test',
@@ -84,6 +107,8 @@ describe('Server path: /items/create', () => {
       assert.equal(response.status, 400);
       assert.include(parseTextFromHTML(response.text, 'form'), 'required');
     });
+
+
     it('displays an error message when supplied an empty imageUrl', async () => {
       const invalidItemToCreate = {
         title: 'test',
@@ -98,6 +123,7 @@ describe('Server path: /items/create', () => {
       assert.equal(response.status, 400);
       assert.include(parseTextFromHTML(response.text, 'form'), 'required');
     });
+    */
   });
-*/
+
 });
