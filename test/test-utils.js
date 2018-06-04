@@ -5,9 +5,9 @@ const Item = require('../models/video');
 // Create and return a sample Item object
 const buildItemObject = (options = {}) => {
   const title = options.title || 'Excited train guy, New York!';
-  const imageUrl = options.imageUrl || 'https://www.youtube.com/embed/6lutNECOZFw';
+  const videoUrl = options.videoUrl || 'https://www.youtube.com/embed/6lutNECOZFw';
   const description = options.description || 'Listen to that horn!';
-  return {title, imageUrl, description};
+  return {title, videoUrl, description};
 };
 
 // Add a sample Item object to mongodb

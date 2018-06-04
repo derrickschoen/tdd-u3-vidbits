@@ -9,9 +9,10 @@ describe('User visiting new videos page', () => {
     browser.url('/create.html');
     browser.setValue('#title-input', itemToCreate.title);
     browser.setValue('#description-input', itemToCreate.description);
-    // browser.setValue('#imageUrl-input', itemToCreate.imageUrl);
+    browser.setValue('#videoUrl-input', itemToCreate.videoUrl);
     browser.click('#submit-button');
     assert.include(browser.getText('body'), itemToCreate.title);
+    assert.include(browser.getText('body'), itemToCreate.description);
     // assert.include(browser.getAttribute('body img', 'src'), itemToCreate.imageUrl);
 
   });

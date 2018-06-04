@@ -4,13 +4,13 @@ const request = require('supertest');
 const app = require('../../app');
 
 const {parseTextFromHTML, seedItemToDatabase} = require('../test-utils');
-const {connectDatabaseAndDropData, diconnectDatabase} = require('../setup-teardown-utils');
+const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities');
 
 describe('Server path: /items/:id', () => {
   /*
   beforeEach(connectDatabaseAndDropData);
 
-  afterEach(diconnectDatabase);
+  afterEach(disconnectDatabase);
 
   // Write your test blocks below:
   describe('GET', () => {

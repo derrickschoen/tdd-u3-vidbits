@@ -6,7 +6,7 @@ const app = require('../../app');
 const Video = require('../../models/video');
 
 const {parseTextFromHTML, buildItemObject} = require('../test-utils');
-const {connectDatabaseAndDropData, diconnectDatabase} = require('../setup-teardown-utils');
+const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities');
 
 const findImageElementBySource = (htmlAsString, src) => {
   const image = jsdom(htmlAsString).querySelector(`img[src="${src}"]`);
@@ -17,12 +17,12 @@ const findImageElementBySource = (htmlAsString, src) => {
   }
 };
 
-describe('Server path: /items/create', () => {
+describe('Server path: /videos', () => {
 
 
   beforeEach(connectDatabaseAndDropData);
 
-  afterEach(diconnectDatabase);
+  afterEach(disconnectDatabase);
 /*
   describe('GET', () => {
 
@@ -41,14 +41,14 @@ describe('Server path: /items/create', () => {
 
   describe('POST', () => {
 
-    it('returns 201', async () => {
-      const itemToCreate = buildItemObject();
-      const response = await request(app)
-        .post('/videos')
-        .type('form')
-        .send(itemToCreate);
-      assert.equal(response.status, 201);
-    });
+    // it('returns 201', async () => {
+    //   const itemToCreate = buildItemObject();
+    //   const response = await request(app)
+    //     .post('/videos')
+    //     .type('form')
+    //     .send(itemToCreate);
+    //   assert.equal(response.status, 201);
+    // });
 
     it('creates and saves a new video', async () => {
       const itemToCreate = buildItemObject();
