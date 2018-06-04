@@ -23,107 +23,106 @@ describe('Server path: /videos', () => {
   beforeEach(connectDatabaseAndDropData);
 
   afterEach(disconnectDatabase);
-/*
+
   describe('GET', () => {
 
 
     it('renders empty input fields', async () => {
       const response = await request(app)
-        .get('/items/create');
+        .get('/videos/create');
  
       assert.equal(parseTextFromHTML(response.text, 'input#title-input'), '');
       assert.equal(parseTextFromHTML(response.text, 'textarea#description-input'), '');
-      assert.equal(parseTextFromHTML(response.text, 'input#imageUrl-input'), '');
+      assert.equal(parseTextFromHTML(response.text, 'input#videoUrl-input'), '');
  
     });
   });
-*/
+
 
   describe('POST', () => {
 
-    // it('returns 201', async () => {
-    //   const itemToCreate = buildItemObject();
-    //   const response = await request(app)
-    //     .post('/videos')
-    //     .type('form')
-    //     .send(itemToCreate);
-    //   assert.equal(response.status, 201);
-    // });
 
-    it('creates and saves a new video', async () => {
-      const itemToCreate = buildItemObject();
-      const response = await request(app)
-        .post('/videos')
-        .type('form')
-        .send(itemToCreate);
-      const createdItem = await Video.findOne(itemToCreate);
-      assert.isOk(createdItem, 'Item was not created successfully in the database');
+    describe('when given valid data', () => {
+
+
+      it('creates and saves a new video', async () => {
+        const itemToCreate = buildItemObject();
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(itemToCreate);
+        const createdItem = await Video.findOne(itemToCreate);
+        assert.isOk(createdItem, 'Item was not created successfully in the database');
+      });
+
+
+      it('redirects home', async () => {
+        const itemToCreate = buildItemObject();
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(itemToCreate);
+        assert.equal(response.status, 302);
+        assert.equal(response.headers.location, '/videos');
+      });
     });
 
 
-/*
+    describe('when given invalid data', () => {
 
 
+      it('displays an error message when supplied an empty title', async () => {
+        const invalidItemToCreate = {
+          description: 'test',
+          videoUrl: 'https://www.placebear.com/200/300'
+        };
+        const response = await request(app)
+          .post('/videos')
+          .type('form')
+          .send(invalidItemToCreate);
+        const allItems = await Video.find({});
+        assert.equal(allItems.length, 0);
+        assert.equal(response.status, 400);
+        assert.include(parseTextFromHTML(response.text, 'form'), 'required');
 
-
-    it('redirects home', async () => {
-      const itemToCreate = buildItemObject();
-      const response = await request(app)
-        .post('/items/create')
-        .type('form')
-        .send(itemToCreate);
-      assert.equal(response.status, 302);
-      assert.equal(response.headers.location, '/');
-    });
-
-
-    it('displays an error message when supplied an empty title', async () => {
-      const invalidItemToCreate = {
-        description: 'test',
-        imageUrl: 'https://www.placebear.com/200/300'
-      };
-      const response = await request(app)
-        .post('/items/create')
-        .type('form')
-        .send(invalidItemToCreate);
-      const allItems = await Item.find({});
-      assert.equal(allItems.length, 0);
-      assert.equal(response.status, 400);
-      assert.include(parseTextFromHTML(response.text, 'form'), 'required');
+        assert.equal(parseTextFromHTML(response.text, 'input#title-input'), '');
+        assert.include(parseTextFromHTML(response.text, 'textarea#description-input'), invalidItemToCreate.description);
+        //assert.include(parseTextFromHTML(response.text, 'input#videoUrl-input'), invalidItemToCreate.videoUrl);
+      });
     });
 
 
     it('displays an error message when supplied an empty description', async () => {
       const invalidItemToCreate = {
         title: 'test',
-        imageUrl: 'https://www.placebear.com/200/300'
+        videoUrl: 'https://www.placebear.com/200/300'
       };
       const response = await request(app)
-        .post('/items/create')
+        .post('/videos')
         .type('form')
         .send(invalidItemToCreate);
-      const allItems = await Item.find({});
+      const allItems = await Video.find({});
       assert.equal(allItems.length, 0);
       assert.equal(response.status, 400);
       assert.include(parseTextFromHTML(response.text, 'form'), 'required');
     });
 
 
-    it('displays an error message when supplied an empty imageUrl', async () => {
+    it('displays an error message when supplied an empty videoUrl', async () => {
       const invalidItemToCreate = {
         title: 'test',
         description: 'test'
       };
       const response = await request(app)
-        .post('/items/create')
+        .post('/videos')
         .type('form')
         .send(invalidItemToCreate);
-      const allItems = await Item.find({});
+      const allItems = await Video.find({});
       assert.equal(allItems.length, 0);
       assert.equal(response.status, 400);
       assert.include(parseTextFromHTML(response.text, 'form'), 'required');
     });
-    */
+    
   });
 
 });

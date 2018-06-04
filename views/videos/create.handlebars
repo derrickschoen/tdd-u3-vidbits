@@ -16,13 +16,22 @@
 
             <form class="input-form" action="/videos" method="post" >
                 <label class="form-label" for="title">Title</label>
-                <input id="title-input" name="title" maxlength="50"/>
+                <input id="title-input" name="title" maxlength="50" value="{{newVideo.title}}"/>
+                {{#with newVideo.errors.title as |error|}}
+                    <span class="error">{{error.message}}</span>
+                {{/with}}
 
                 <label class="form-label" for="description">Description</label>
-                <textarea id="description-input" name="description"></textarea>
+                <textarea id="description-input" name="description">{{newVideo.description}}</textarea>
+                {{#with newVideo.errors.description as |error|}}
+                    <span class="error">{{error.message}}</span>
+                {{/with}}
 
                 <label class="form-label" for="videoUrl">Video Url</label>
-                <input id="videoUrl-input" name="videoUrl" oninput="handleChange"/>
+                <input id="videoUrl-input" name="videoUrl" oninput="handleChange" value="{{newVideo.videoUrl}}"/>
+                {{#with newVideo.errors.videoUrl as |error|}}
+                    <span class="error">{{error.message}}</span>
+                {{/with}}
 
                 <div class="form-navigation">
                     <a href="/">
