@@ -1,18 +1,7 @@
 const {assert} = require('chai');
-const {buildItemObject, seedItemToDatabase} = require('../test-utils');
+const {buildItemObject, createVideoInBrowser} = require('../test-utils');
 
-function createVideoInBrowser(options = {}){
-  const itemToCreate = buildItemObject(options);
 
-  browser.url('/videos/create');
-  browser.setValue('#title-input', itemToCreate.title);
-  browser.setValue('#description-input', itemToCreate.description);
-  browser.setValue('#videoUrl-input', itemToCreate.videoUrl);
-  browser.click('#submit-button');
-  browser.url('/');
-
-  return itemToCreate;
-}
 
 describe('User visiting the landing page', () => {
 
@@ -39,7 +28,7 @@ describe('User visiting the landing page', () => {
 
     it('sees it in the list', () => {
       const videoData = buildItemObject();
-      const video = createVideoInBrowser(videoData)
+      const video = createVideoInBrowser(videoData);
       browser.url('/');
       assert.include(browser.getText('.video-title'), videoData.title);
       assert.include(browser.getAttribute('iframe.video-player', 'src'), videoData.videoUrl);
@@ -48,9 +37,9 @@ describe('User visiting the landing page', () => {
 
     it('can navigate to a video', () => {
       const videoData = buildItemObject();
-      const video = createVideoInBrowser(videoData)
+      const video = createVideoInBrowser(videoData);
       browser.url('/');
-      browser.click('.video-title')
+      browser.click('.video-title');
       assert.include(browser.getText('.video-title'), videoData.title);
       assert.include(browser.getAttribute('iframe.video-player', 'src'), videoData.videoUrl);
       assert.include(browser.getText('.video-description'), videoData.description);

@@ -1,20 +1,14 @@
 const {assert} = require('chai');
-const {buildItemObject} = require('../test-utils');
+const {buildItemObject, createVideoInBrowser} = require('../test-utils');
 
 describe('User visiting new videos page', () => {
   describe('posts a new video', () => {
     it('can see it rendered', () => {
-      const itemToCreate = buildItemObject();
-
-      browser.url('/videos/create');
-      browser.setValue('#title-input', itemToCreate.title);
-      browser.setValue('#description-input', itemToCreate.description);
-      browser.setValue('#videoUrl-input', itemToCreate.videoUrl);
-      browser.click('#submit-button');
+      const videoData = buildItemObject();
+      const video = createVideoInBrowser(videoData);
       browser.url('/');
-      assert.include(browser.getText('#videos-container'), itemToCreate.title);
-      // assert.include(browser.getText('body'), itemToCreate.description);
-      assert.include(browser.getAttribute('body iframe', 'src'), itemToCreate.videoUrl);
+      assert.include(browser.getText('#videos-container'), videoData.title);
+      assert.include(browser.getAttribute('body iframe', 'src'), videoData.videoUrl);
 
     });
   });

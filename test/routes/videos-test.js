@@ -3,8 +3,9 @@ const request = require('supertest');
 const {jsdom} = require('jsdom');
 
 const app = require('../../app');
+const Video = require('../../models/video');
 
-const {parseTextFromHTML, seedItemToDatabase} = require('../test-utils');
+const {parseTextFromHTML, seedItemToDatabase, parseAttributeFromHTML} = require('../test-utils');
 const {connectDatabaseAndDropData, disconnectDatabase} = require('../database-utilities');
 
 const findImageElementBySource = (htmlAsString, src) => {
@@ -46,6 +47,20 @@ describe('Server path: /videos', () => {
       assert.include(parseTextFromHTML(response.text, `#video-${firstItem._id} .video-title`), firstItem.title);
       assert.include(parseTextFromHTML(response.text, `#video-${secondItem._id} .video-title`), secondItem.title);
     });
+
+  });
+
+  it('deletes a video.', async () => {
+    const item = await seedItemToDatabase();
+    const deleteUrl = '/videos/' + item._id + '/deletions ';
+
+    const response = await request(app)
+      .post(deleteUrl)
+      .type('form')
+      .send({delete: 'delete'});
+
+    const allItems = await Video.find({});
+    assert.equal(allItems.length, 0);
 
   });
 });
